@@ -3,3 +3,5 @@
 3. Run requirements.bat
 4. Modify 'path' in main.py 18 line to your documents\chromedriver.exe path
 5. Modify 'album link' in main.py 22 line
+
+| you can also modify the image name in main.py 54 line
