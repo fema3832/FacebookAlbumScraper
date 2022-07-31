@@ -1,24 +1,28 @@
-name: release
+---
+name: "pre-release"
+
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - "master"
+
 jobs:
-  goreleaser:
-    runs-on: ubuntu-latest
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Setup Go
-        uses: actions/setup-go@v1
+      # ...
+      - name: "Build & test"
+        run: |
+          echo "done!"
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          go-version: 1.16
-      - name: GoReleaser
-        uses: goreleaser/goreleaser-action@v1
-        with:
-          version: latest
-          args: release --rm-dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update new version in krew-index
-        uses: rajatjindal/krew-release-bot@v0.0.43
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE.txt
+            *.jar
